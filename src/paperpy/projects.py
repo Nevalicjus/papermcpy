@@ -1,4 +1,5 @@
 from .utils import paper_request
+from .classes import Project
 
 __all_ = (
     'proj',
@@ -6,7 +7,8 @@ __all_ = (
 )
 
 async def proj(proj: str):
-    return await paper_request(type= "get", url = f"projects/{proj}")
+    r = await paper_request(type= "get", url = f"projects/{proj}")
+    return Project(*[r[x] for x in list(r.keys())])
 
 async def projs():
     return await paper_request(type= "get", url = "projects")
