@@ -1,0 +1,65 @@
+BuildResponse {
+  project_id	string //pattern: [a-z]+
+  project_name	string
+  version	string //pattern: [0-9.]+-?(?:pre|SNAPSHOT)?(?:[0-9.]+)?
+  build	integer($int32) //pattern: \d+
+  time	string($date-time)
+  channel	[default || experimental]
+  promoted	boolean
+  changes	[Change] //n-element
+  downloads	{string:	Download} //n-element
+}
+
+Change {
+  commit	string
+  summary	string
+  message	string
+}
+
+Download {
+  name	string //pattern: [a-z0-9._-]+
+  sha256	string //pattern: [a-f0-9]{64}
+}
+
+ProjectResponse {
+  project_id	string //pattern: [a-z]+
+  project_name	string
+  version_groups	[string]
+  versions	[string]
+}
+
+ProjectsResponse {
+  projects	[string]
+}
+
+VersionFamilyBuild {
+  version	string //pattern: [0-9.]+-?(?:pre|SNAPSHOT)?(?:[0-9.]+)?
+  build	integer($int32) //pattern: \d+
+  time	string($date-time)
+  channel	[default || experimental]
+  promoted	boolean
+  changes	[Change] //n-element
+  downloads	{string:	Download} //n-element
+}
+
+VersionFamilyBuildsResponse {
+  project_id	string //pattern: [a-z]+
+  project_name	string
+  version_group	string //pattern: [0-9.]+-?(?:pre|SNAPSHOT)?(?:[0-9.]+)?
+  versions	[string]
+  builds	[VersionFamilyBuild]
+}
+
+VersionFamilyResponse{
+  project_id	string //pattern: [a-z]+
+  project_name	string
+  version_group	string //pattern: [0-9.]+-?(?:pre|SNAPSHOT)?(?:[0-9.]+)?
+  versions	[string]
+}
+
+VersionResponse{
+  project_id	string /pattern: [a-z]+
+  project_name	string
+  version	string /pattern: [0-9.]+-?(?:pre|SNAPSHOT)?(?:[0-9.]+)?
+  builds	[integer($int32)]
+}
