@@ -1,6 +1,6 @@
 import requests
 
-async def paper_request(type: str, url: str):
+def paper_request(type: str, url: str):
     base_url = "https://papermc.io/api/v2/"
 
     headers = {
