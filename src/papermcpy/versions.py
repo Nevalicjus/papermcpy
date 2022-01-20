@@ -1,5 +1,5 @@
 from .utils import paper_request
-from .classes import Version, Build, FBuild, Family, FBuilds
+#from .classes import Version, Build, FBuild, Family, FBuilds
 
 __all__ = (
     'version',
@@ -9,18 +9,22 @@ __all__ = (
 )
 
 def version(proj: str, ver: str):
+    from .classes import Version
     r = paper_request(type= "get", url = f"projects/{proj}/versions/{ver}")
     return Version(*[r[x] for x in list(r.keys())])
 
 def build(proj: str, ver: str, build: str):
+    from .classes import Build
     r = paper_request(type= "get", url = f"projects/{proj}/versions/{ver}/builds/{build}")
     return Build(*[r[x] for x in list(r.keys())])
 
 def family(proj: str, family: str):
+    from .classes import Family
     r = paper_request(type= "get", url = f"projects/{proj}/version_group/{family}")
     return Family(*[r[x] for x in list(r.keys())])
 
 def family_builds(proj: str, family: str):
+    from .classes import FBuilds
     r = paper_request(type= "get", url = f"projects/{proj}/version_group/{family}/builds")
     builds = []
     for b in r["builds"]:
