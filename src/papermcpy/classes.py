@@ -1,4 +1,5 @@
-#
+import copy
+from .versions import version, build
 
 class Project():
     def __init__(self, proj_id, proj_name, v_groups, vs):
@@ -19,6 +20,20 @@ class Project():
     def __str__(self):
         return f"{dict(self)}"
 
+    def fetch_versions(self):
+        ret = copy.deepcopy(self)
+        new_vs = []
+        for v in self.versions:
+            new_vs.append(version(self.id, v))
+        ret.versions = new_vs
+        return ret
+
+    def update_versions(self):
+        new_vs = []
+        for v in self.versions:
+            new_vs.append(version(self.id, v))
+        self.versions = new_vs
+
 class Version():
     def __init__(self, proj_id, proj_name, version, builds):
         self.id = proj_id
@@ -37,6 +52,20 @@ class Version():
 
     def __str__(self):
         return f"{dict(self)}"
+
+    def fetch_builds(self):
+        ret = copy.deepcopy(self)
+        new_builds = []
+        for b in self.builds:
+            new_builds.append(build(self.id, self.version, b))
+        ret.builds = new_builds
+        return ret
+
+    def update_builds(self):
+        new_builds = []
+        for b in self.builds:
+            new_builds.append(build(self.id, self.version, b))
+        self.builds = new_builds
 
 class Build():
     def __init__(self, proj_id, proj_name, version, build, time, channel, promoted, changes, downloads):
@@ -92,6 +121,20 @@ class Family():
 
     def __str__(self):
         return f"{dict(self)}"
+
+    def fetch_versions(self):
+        ret = copy.deepcopy(self)
+        new_vs = []
+        for v in self.versions:
+            new_vs.append(version(self.id, v))
+        ret.versions = new_vs
+        return ret
+
+    def update_versions(self):
+        new_vs = []
+        for v in self.versions:
+            new_vs.append(version(self.id, v))
+        self.versions = new_vs
 
 class FBuild():
     def __init__(self, version, build, time, channel, promoted, changes, downloads):
